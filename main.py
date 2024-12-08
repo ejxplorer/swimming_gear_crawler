@@ -3,6 +3,7 @@ import time
 import random
 from speedo.speedo_crawler import crawl_speedo_swimsuits
 from jolyn.jolyn_crawler import crawl_jolyn_swimsuits
+from nike.nike_crawler import crawl_nike_swimsuits
 from db_manager import DBManager
 
 logging.basicConfig(
@@ -49,18 +50,26 @@ def main():
     
     try:
         db_manager.connect()
+        total_count = 0
         
-        # Speedo 크롤링
-        speedo_url = "https://speedo.co.kr/category/onepiece/29/sort_method=5"
-        speedo_items = crawl_brand(crawl_speedo_swimsuits, speedo_url, db_manager)
-        print(f"\n=== Speedo 최종 {len(speedo_items)}개 상품 수집 및 저장 완료 ===")
+        # # Speedo 크롤링
+        # speedo_url = "https://speedo.co.kr/category/onepiece/29/sort_method=5"
+        # speedo_items = crawl_brand(crawl_speedo_swimsuits, speedo_url, db_manager)
+        # print(f"\n=== Speedo 최종 {len(speedo_items)}개 상품 수집 및 저장 완료 ===")
+        # total_count += len(speedo_items)
         
-        # Jolyn 크롤링
-        jolyn_url = "https://jolynkorea.co.kr/category/onesies/46/sort_method=5"
-        jolyn_items = crawl_brand(crawl_jolyn_swimsuits, jolyn_url, db_manager)
-        print(f"\n=== Jolyn 최종 {len(jolyn_items)}개 상품 수집 및 저장 완료 ===")
+        # # Jolyn 크롤링
+        # jolyn_url = "https://jolynkorea.co.kr/category/onesies/46/sort_method=5"
+        # jolyn_items = crawl_brand(crawl_jolyn_swimsuits, jolyn_url, db_manager)
+        # print(f"\n=== Jolyn 최종 {len(jolyn_items)}개 상품 수집 및 저장 완료 ===")
+        # total_count += len(jolyn_items)
+
+        # Nike 크롤링
+        nike_url = "https://www.swimmetro.co.kr/goods/goods_list.php?cateCd=001001"
+        nike_items = crawl_brand(crawl_nike_swimsuits, nike_url, db_manager)
+        print(f"\n=== Nike 최종 {len(nike_items)}개 상품 수집 및 저장 완료 ===")
+        total_count += len(nike_items)
         
-        total_count = len(speedo_items) + len(jolyn_items)
         print(f"\n=== 전체 {total_count}개 상품 수집 및 저장 완료 ===")
         
     except Exception as e:
