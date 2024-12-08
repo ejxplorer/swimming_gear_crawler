@@ -5,6 +5,7 @@ from speedo.speedo_crawler import crawl_speedo_swimsuits
 from jolyn.jolyn_crawler import crawl_jolyn_swimsuits
 from nike.nike_crawler import crawl_nike_swimsuits
 from funkita.funkita_crawler import crawl_funkita_swimsuits
+from pooltime.pooltime_crawler import fetch_pooltime_swimsuits
 from db_manager import DBManager
 
 logging.basicConfig(
@@ -71,13 +72,20 @@ def main():
         # print(f"\n=== Nike 최종 {len(nike_items)}개 상품 수집 및 저장 완료 ===")
         # total_count += len(nike_items)
 
-        # Funkita 크롤링
-        funkita_url = "https://funkytrunks-korea.com/product/list2-women-col3.html?cate_no=37"
-        funkita_items = crawl_brand(crawl_funkita_swimsuits, funkita_url, db_manager)
-        print(f"\n=== Funkita 최종 {len(funkita_items)}개 상품 수집 및 저장 완료 ===")
-        total_count += len(funkita_items)
+        # # Funkita 크롤링
+        # funkita_url = "https://funkytrunks-korea.com/product/list2-women-col3.html?cate_no=37"
+        # funkita_items = crawl_brand(crawl_funkita_swimsuits, funkita_url, db_manager)
+        # print(f"\n=== Funkita 최종 {len(funkita_items)}개 상품 수집 및 저장 완료 ===")
+        # total_count += len(funkita_items)
+
+        # Pooltime api
+        pooltime_url = "https://m.pooltime.kr/exec/front/Product/ApiProductNormal?cate_no=97&supplier_code=S0000000&count=200"
+        pooltime_items = fetch_pooltime_swimsuits(pooltime_url)
+        db_manager.insert_gear_data(pooltime_items)
+        print(f"\n=== Pooltime 최종 {len(pooltime_items)}개 상품 수집 및 저장 완료 ===")
+        total_count += len(pooltime_items)
         
-        print(f"\n=== 전체 {total_count}개 상품 수집 및 저장 완료 ===")
+        print(f"\n=== 전체 {total_count}개 상품 수집 및 저장 완료 ===\n")
         
     except Exception as e:
         logging.error(f"에러 발생: {str(e)}")
