@@ -4,6 +4,7 @@ import random
 from speedo.speedo_crawler import crawl_speedo_swimsuits
 from jolyn.jolyn_crawler import crawl_jolyn_swimsuits
 from nike.nike_crawler import crawl_nike_swimsuits
+from funkita.funkita_crawler import crawl_funkita_swimsuits
 from db_manager import DBManager
 
 logging.basicConfig(
@@ -64,11 +65,17 @@ def main():
         # print(f"\n=== Jolyn 최종 {len(jolyn_items)}개 상품 수집 및 저장 완료 ===")
         # total_count += len(jolyn_items)
 
-        # Nike 크롤링
-        nike_url = "https://www.swimmetro.co.kr/goods/goods_list.php?cateCd=001001"
-        nike_items = crawl_brand(crawl_nike_swimsuits, nike_url, db_manager)
-        print(f"\n=== Nike 최종 {len(nike_items)}개 상품 수집 및 저장 완료 ===")
-        total_count += len(nike_items)
+        # # Nike 크롤링
+        # nike_url = "https://www.swimmetro.co.kr/goods/goods_list.php?cateCd=001001"
+        # nike_items = crawl_brand(crawl_nike_swimsuits, nike_url, db_manager)
+        # print(f"\n=== Nike 최종 {len(nike_items)}개 상품 수집 및 저장 완료 ===")
+        # total_count += len(nike_items)
+
+        # Funkita 크롤링
+        funkita_url = "https://funkytrunks-korea.com/product/list2-women-col3.html?cate_no=37"
+        funkita_items = crawl_brand(crawl_funkita_swimsuits, funkita_url, db_manager)
+        print(f"\n=== Funkita 최종 {len(funkita_items)}개 상품 수집 및 저장 완료 ===")
+        total_count += len(funkita_items)
         
         print(f"\n=== 전체 {total_count}개 상품 수집 및 저장 완료 ===")
         
